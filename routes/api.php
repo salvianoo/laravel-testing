@@ -20,18 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/contatos', function(Request $request) {
 
-    $letter = $request->query('letter');
+    $params = $request->query;
+    // dd($params);
 
-    if ($letter) {
-
-        $contatos = Contato::by_letter($letter);
-
-    } else {
-
-        $contatos = Contato::select('firstname', 'lastname', 'email')
-                            ->orderBy('lastname')->get();
-    }
-
-    return response()->json($contatos);
+    return (new Contato)->search_by_letter($request->query);
 
 });

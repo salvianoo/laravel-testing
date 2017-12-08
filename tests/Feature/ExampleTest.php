@@ -5,18 +5,16 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Contato;
-use Illuminate\Support\Facades\Artisan;
 
 class ExampleTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function setUp()
     {
         parent::setUp();
 
-        Artisan::call('migrate');
-
         $this->smith = factory(Contato::class)->create([ 'lastname' => 'Silva' ]);
-
         $this->jones = factory(Contato::class)->create([ 'lastname' => 'Jones' ]);
     }
 
@@ -39,25 +37,25 @@ class ExampleTest extends TestCase
             ]);
     }
 
-    /**
-     * @test
-     */
-    public function get_contatos_without_params_letter()
-    {
-        $smith = $this->smith->lastname;
-        $jones = $this->jones->lastname;
+//     /**
+//      * @test
+//      */
+//     public function get_contatos_without_params_letter()
+//     {
+//         $smith = $this->smith->lastname;
+//         $jones = $this->jones->lastname;
 
-        $response = $this->get('/api/contatos');
+//         $response = $this->get('/api/contatos');
 
-        $data = $response
-            ->assertStatus(200)
-            ->decodeResponseJson();
+//         $data = $response
+//             ->assertStatus(200)
+//             ->decodeResponseJson();
 
-        $contatos = collect($data)->map(function ($contato) {
-            return $contato['lastname'];
-        })->toArray();
+//         $contatos = collect($data)->map(function ($contato) {
+//             return $contato['lastname'];
+//         })->toArray();
 
-        $this->assertEquals($contatos, [ $jones, $smith ]);
-    }
+//         $this->assertEquals($contatos, [ $jones, $smith ]);
+//     }
 
 }
