@@ -15,14 +15,9 @@ class ExampleTest extends TestCase
 
         Artisan::call('migrate');
 
-        $this->smith = factory(Contato::class)->create([
-            'lastname' => 'Silva',
-        ]);
+        $this->smith = factory(Contato::class)->create([ 'lastname' => 'Silva' ]);
 
-        $this->jones = factory(Contato::class)->create([
-            'lastname' => 'Jones',
-        ]);
-
+        $this->jones = factory(Contato::class)->create([ 'lastname' => 'Jones' ]);
     }
 
     /**
